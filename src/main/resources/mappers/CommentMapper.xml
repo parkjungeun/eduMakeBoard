@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http#{//mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mappers.CommentMapper">
+
+	<select id="selectAllCommentList" resultType="com.spring.makeBoard.dto.CommentDto">
+   		<![CDATA[
+   			SELECT 	
+   				no,
+   				board_no,
+   				contents,
+   				depth,
+   				created_user,
+   				created_at,
+   				updated_user,
+   				updated_at
+   			FROM
+   				comments
+   			WHERE
+   				board_no = ${value}
+   			ORDER BY created_at desc
+   		]]>
+   </select>
+   
+    <insert id="insertComment" parameterType = "com.spring.makeBoard.dto.CommentDto">
+   		<![CDATA[
+   			INSERT INTO comments (no, board_no, contents, depth, created_at, created_user)
+   			VALUES (SEQ_NO.NEXTVAL, '${boardNo}', '${contents}', '${depth}', SYSDATE, '${createdUser}')
+   		]]>
+   </insert>
+   
+       <update id="updateComment" parameterType = "com.spring.makeBoard.dto.CommentDto">
+   		<![CDATA[
+   			UPDATE comments 
+   			SET 
+   				 contents = '${contents}', 
+   				 created_user = '${createdUser}', 
+   				 updated_at = sysdate, 
+   			WHERE no = ${no}
+   		]]>
+   </update>
+   
+   <delete id="deleteComment" >
+   		DELETE FROM comments
+   		WHERE no = ${value}
+   </delete>
+</mapper>

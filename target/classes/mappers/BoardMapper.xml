@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http#{//mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mappers.BoardMapper">
+   
+   <select id="selectBoardAllList" resultType="com.spring.makeBoard.dto.BoardDto">
+   		<![CDATA[
+   			SELECT 	
+   				no,
+   				title,
+   				contents,
+   				writer,
+   				created_at,
+   				updated_at,
+   				notice_yn,
+   				hit,
+                NVL(b.commentCnt, 0)as commentCnt
+   			FROM
+   				board a, 
+                ( 
+                   select board_no, count(*) as commentCnt
+                   from comments 
+                   where board_no in (select no from board)
+                   group by board_no
+                ) b
+            where a.no = b.board_no(+)
+   			ORDER BY notice_yn desc, created_at desc
+   		]]>
+   </select>
+   
+    <select id="selectBoardDetail" resultType="com.spring.makeBoard.dto.BoardDto">
+   		<![CDATA[
+   			SELECT 	
+   				no,
+   				title,
+   				contents,
+   				writer,
+   				created_at,
+   				updated_at,
+   				notice_yn,
+   				hit
+   			FROM
+   				BOARD
+   			WHERE no = ${value}
+   		]]>
+   </select>
+   
+   <update id="increaseHitCount">
+   		<![CDATA[
+   			UPDATE BOARD
+   			SET hit = (hit + 1)
+   			WHERE no = ${value}
+   		]]>
+   </update>
+   
+   <insert id="insertBoard" parameterType = "com.spring.makeBoard.dto.BoardDto">
+   		<![CDATA[
+   			INSERT INTO BOARD (no, title, contents, writer, created_at, notice_yn, hit)
+   			VALUES (NO_SEQ.NEXTVAL, '${title}', '${contents}', '${writer}', SYSDATE, '${noticeYn}', 0)
+   		]]>
+   </insert>
+   
+    <update id="updateBoard" parameterType = "com.spring.makeBoard.dto.BoardDto">
+   		<![CDATA[
+   			UPDATE BOARD 
+   			SET 
+   				 title = '${title}', 
+   				 contents = '${contents}',
+   				 writer = '${writer}', 
+   				 updated_at = sysdate, 
+   				 notice_yn = '${noticeYn}' 
+   			WHERE no = ${no}
+   		]]>
+   </update>
+   
+   <delete id="deleteBoard" >
+   		DELETE FROM BOARD
+   		WHERE no = ${value}
+   </delete>
+   
+</mapper>

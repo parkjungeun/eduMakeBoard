@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>게시판</title>
+	<link rel = "stylesheet" href="../../static/css/style.css"></link>
+</head>
+<body>
+	<div class="board_list_wrap">
+		<table class="board_list">
+			<caption>게시판 목록</caption>
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>제목</th>
+					<th>내용</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<c:forEach var="row" items="${list}">
+					<tr>
+						<td>${row.seq}</td>
+						<td>${row.title}</td>
+						<td>${row.content}</td>
+						<td>${row.writer}</td>
+						<td>
+							<frm:formatDate value="${row.cdate}" pattern="yyyy-mm-dd"/>
+						</td>
+						<td>${row.views}</td>
+					</tr>
+				</c:forEach>						
+			</tbody>
+			
+		</table>
+	</div>
+</body>
+</html>

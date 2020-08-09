@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+* {
+	margin:50;
+	padding :0;
+}
+
+/* 모든 Table 간격 없애기   */
+table {
+	border-collapse: collapse;
+}
+
+caption {
+	display : none;
+}
+
+.board_list_wrap{
+	padding : 30px;
+}
+
+.board_list{
+	position : relative;
+	left : 8px;
+	
+	width : 80%;
+	border-top : 2px solid #ff8000;
+}
+
+.board_list:hovor {
+	background : #e9e9e9;
+}
+
+.board_list th,
+.board_list td {
+	padding : 8px;
+}
+
+.board_list tr {
+	border-bottom: 1px solid #ccc;
+	font-size : 14px;
+}
+
+.board_list td {
+	text-align: center;
+	font-size : 12px;
+}
+
+.board_list tbody tr td:nth-child(3),
+.board_list tbody tr td:nth-child(4){
+	/* background : lime; */
+	text-align: left;
+}
+
+.btn {
+	padding: 8px 18px;  
+	margin: 8px 10px;
+	
+	position : relative;
+	left : 75%;
+	
+  	font-size: 14px;
+  	
+  	border-style: solid;
+  	border-radius : 10px;
+  	border-width: 1px;
+  	
+  	
+}
+
+.btn:hover    {
+	background-color: #e9e9e9;
+}
